@@ -1,0 +1,35 @@
+import sys
+
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox,QLabel
+from PyQt5.QtGui import QFont
+class MyWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("agu gaga")
+        self.setGeometry(500, 500, 500, 500)
+
+        label = QLabel("sosat hui i zhopu",self)
+        label.setFont(QFont("Arial",20))
+        label.setGeometry(0, 0, 500, 100)
+        label.setStyleSheet("background-color:#3295a8;" "color:#670fab;"
+                            "text-decoration:underline;")
+        label.setAlignment(Qt.AlignCenter)
+        #label.setAlignment(Qt.AlignTop)
+        # Qt.AlignVCenter     — по вертикали по центру
+        # Qt.AlignRight       — по горизонтали направо
+        # Qt.AlignHCenter     — по горизонтали по центру
+        # Qt.AlignLeft        — по горизонтали налево
+        # Qt.AlignTop         — сверху
+        # Qt.AlignBottom      — снизу
+        # Qt.AlignCenter | Qt.AlignTop    — по центру и сверху
+        # Qt.AlignCenter | Qt.AlignBottom — по центру и снизу
+
+
+def main():
+    app = QApplication(sys.argv)
+    window = MyWindow()
+    window.show()
+    sys.exit(app.exec_())
+if __name__ == '__main__':
+    main()
