@@ -1,0 +1,9 @@
+import requests
+from bs4 import BeautifulSoup
+
+url= "https://books.toscrape.com/"
+response = requests.get(url)
+soup = BeautifulSoup(response.text, "lxml")
+first_book_container = soup.find("article", class_="product_pod")
+name= first_book_container.find("p", class_="price_color").text.strip()
+print(name)
