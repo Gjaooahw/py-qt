@@ -1,0 +1,21 @@
+import random
+amount=int(input("Введите колличество участников:"))
+team_size=int(input("Введите колличество групп:"))
+if amount%team_size !=0:
+    print("Невозможно поделить на это число")
+mem=[]
+x=0
+while amount>0:
+    members=input("Введите имя участника:")
+    x+=1
+    mem.append(members)
+    if x==amount:
+        break
+groups=[]
+num=0
+random.shuffle(mem)
+while amount>num:
+    team=mem[num:num+team_size]
+    groups.append(team)
+    num += team_size
+print(groups,end=" ")
