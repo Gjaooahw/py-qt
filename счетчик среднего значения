@@ -1,0 +1,13 @@
+y=int(input("Amount of the averaging numbers:"))
+z=[]
+x=0
+while True:
+    num=float(input("Write your number: "))
+    z.append(num)
+    x+=1
+    if x==y:
+        break
+def average(numbers):
+    numbers=sum(z)/len(numbers)
+    return numbers
+print(average(z))
