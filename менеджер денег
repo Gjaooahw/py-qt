@@ -1,0 +1,129 @@
+# Хранилище всех месяцев
+months = {}
+
+def work_with_month(month_name):
+    # Достаём данные месяца
+    data = months[month_name]
+    comp = data["items"]
+    budget = data["budget"]
+    expense = data["expense"]
+
+    # Цикл работы внутри месяца
+    while True:
+        print("\n--------------")
+        print(f"Месяц: {month_name}")
+        print(f"Бюджет: {budget}")
+        print(f"Текущие расходы: {expense}")
+        print("--------------")
+        print("1 - Добавить покупку")
+        print("2 - Удалить покупку")
+        print("3 - Показать список")
+        print("4 - Вернуться в меню месяцев")
+        print("--------------")
+
+        task = input("Выберите действие: ")
+
+        if task == "1":
+            description = input("Что хотите купить: ")
+            price = float(input("Цена: "))
+
+            new_expense = {"description": description, "amount": price}
+            comp.append(new_expense)
+
+            expense += price
+            data["expense"] = expense  # обновляем в словаре
+
+            print(f"Новая сумма расходов: {expense}")
+
+            if expense > budget:
+                print(f"ВНИМАНИЕ: бюджета не хватает ({expense - budget})")
+
+        elif task == "2":
+            if not comp:
+                print("Удалять нечего.")
+                continue
+
+            for i, item in enumerate(comp):
+                print(f"{i}: {item['description']} — {item['amount']}")
+
+            index = int(input("Введите индекс для удаления: "))
+
+            removed_amount = comp[index]["amount"]
+            removed_name = comp[index]["description"]
+            comp.pop(index)
+
+            expense -= removed_amount
+            data["expense"] = expense
+
+            print(f"Удалено: {removed_name} (цена {removed_amount})")
+            print(f"Новые расходы: {expense}")
+
+        elif task == "3":
+            if not comp:
+                print("Пока нет покупок.")
+            else:
+                print("--- Покупки ---")
+                for i, item in enumerate(comp):
+                    print(f"{i}: {item['description']} — {item['amount']}")
+
+        elif task == "4":
+            print("Возврат в меню месяцев...")
+            return
+
+        else:
+            print("Неверный выбор.")
+
+
+while True:
+    print("\n==============")
+    print("МЕНЮ МЕСЯЦЕВ")
+    print("==============")
+    print("1 - Создать месяц")
+    print("2 - Открыть месяц")
+    print("3 - Показать все месяцы")
+    print("4 - Выход")
+    print("==============")
+
+    choice = input("Выберите действие: ")
+
+    if choice == "1":
+        name = input("Название месяца: ")
+
+        if name in months:
+            print("Такой месяц уже существует.")
+            continue
+
+        budget = float(input("Укажите бюджет месяца: "))
+
+        months[name] = {
+            "budget": budget,
+            "expense": 0,
+            "items": []
+        }
+
+        print(f"Месяц {name} создан.")
+
+    elif choice == "2":
+        name = input("Введите название месяца: ")
+
+        if name not in months:
+            print("Такого месяца нет.")
+            continue
+
+        work_with_month(name)
+
+    elif choice == "3":
+        if not months:
+            print("Нет созданных месяцев.")
+        else:
+            print("Текущие месяцы:")
+            for m in months:
+                print(f"- {m}")
+
+    elif choice == "4":
+        print("Выход...")
+        break
+
+    else:
+        print("Неверный ввод.")
+
